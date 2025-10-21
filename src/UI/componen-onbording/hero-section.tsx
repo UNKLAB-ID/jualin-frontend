@@ -8,7 +8,7 @@ import rectangle37 from "../../assets/images/rectangle37.svg";
 const HeroSection = () => {
     return (
         <section>
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-20">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2 items-center">
                     <div>
                         <h6 className="text-2xl font-semibold text-[var(--secondary)]">Platform Jual Beli Terpercaya di Indonesia</h6>
@@ -22,12 +22,12 @@ const HeroSection = () => {
                             transaksi aman. Mulai jualan sekarang dan raih untung maksimal!
                         </p>
                         <div className="mt-6 flex space-x-4">
-                            <ButtonPrimary text="Get Started" />
-                            <ButtonSecundary text="Learn More" />
+                            <ButtonPrimary text="Get Started" className="px-6 py-3 bg-[var(--primary)] text-white rounded-md font-medium hover:bg-[var(--primary)]/90 transition text-xs" />
+                            <ButtonSecundary text="Learn More" className="px-6 py-3 border border-[var(--primary)] text-[var(--primary)] rounded-md font-medium hover:bg-[var(--primary)]/10 transition text-xs"/>
                         </div>
                     </div>
 
-                    <div className="flex justify-center md:justify-end">
+                    <div className="flex justify-center md:justify-end mt-8 lg:mt-0">
                         <div className="w-full">
                             <div className="flex gap-4 w-full">
                                 <div className="flex-1">

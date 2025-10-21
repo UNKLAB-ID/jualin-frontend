@@ -3,7 +3,11 @@ import CardProduct from "../global/card-product";
 import { useState } from "react";
 import FilterAndSearch from "../global/filter-and-search";
 
-const Products = () => {
+interface ProductsProps {
+  typeContent: "home" | "all-products";
+}
+
+const Products = ({ typeContent }: ProductsProps) => {
   const productsArray = Array.from({ length: 8 }, (_, index) => index);
 
   // Filter State
@@ -26,7 +30,7 @@ const Products = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-2 sm:px-4 md:px-6">
-      <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-6 mt-8">
+      <h2 className={`text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-6 mt-8 ${typeContent === "home" ? "text-center" : "text-left"}`}>
         Produk Terbaru
       </h2>
 
@@ -48,7 +52,7 @@ const Products = () => {
       />
 
       {/* Products Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4 md:gap-6">
+      <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4 md:gap-6">
         {productsArray.map((_, index) => (
           <CardProduct
             key={index}
@@ -60,11 +64,13 @@ const Products = () => {
       </div>
 
       {/* View All Products Button */}
-      <div className="flex justify-center mt-8 sm:mt-12 mb-8">
-        <button className="group relative px-8 sm:px-12 py-3 sm:py-4 border border-black bg-transparent text-[#494F54] rounded-lg font-semibold text-sm sm:text-base transition-all duration-300 shadow-md hover:shadow-xl">
-          <span>Lihat Semua Produk</span>
-        </button>
-      </div>
+      {typeContent === "home" && (
+        <div className="flex justify-center mt-8 sm:mt-12 mb-8">
+          <button className="group relative px-8 sm:px-12 py-3 sm:py-4 border border-black bg-transparent text-[#494F54] rounded-lg font-semibold text-sm sm:text-base transition-all duration-300 shadow-md hover:shadow-xl">
+            <span>Lihat Semua Produk</span>
+          </button>
+        </div>
+      )}
     </div>
   );
 };
