@@ -24,8 +24,8 @@ const NavbarHome = () => {
 
                     {/* Desktop Menu */}
                     <div className="hidden lg:flex items-center space-x-8">
-                        <Link href="#home" className="text-gray-700 hover:text-[var(--primary)] font-medium text-sm">HOME</Link>
-                        <Link href="#categories" className="text-gray-700 hover:text-[var(--primary)] font-medium text-sm">CATEGORIES</Link>
+                        <Link href="/" className="text-gray-700 hover:text-[var(--primary)] font-medium text-sm">HOME</Link>
+                        <Link href="/product-user" className="text-gray-700 hover:text-[var(--primary)] font-medium text-sm">PRODUCT</Link>
                         <Link href="#reviews" className="text-gray-700 hover:text-[var(--primary)] font-medium text-sm">REVIEWS</Link>
                         <Link href="#blogs" className="text-gray-700 hover:text-[var(--primary)] font-medium text-sm">BLOGS</Link>
                         <Link href="#service" className="text-gray-700 hover:text-[var(--primary)] font-medium text-sm">SERVICE</Link>
@@ -47,8 +47,8 @@ const NavbarHome = () => {
                 {/* Mobile Menu */}
                 {mobileMenuOpen && (
                     <div className="lg:hidden mt-4 space-y-3 pb-4">
-                        <Link href="#home" className="block text-gray-700 hover:text-[var(--primary)] text-sm">HOME</Link>
-                        <Link href="#categories" className="block text-gray-700 hover:text-[var(--primary)] text-sm">CATEGORIES</Link>
+                        <Link href="/" className="block text-gray-700 hover:text-[var(--primary)] text-sm">HOME</Link>
+                        <Link href="/product-user" className="block text-gray-700 hover:text-[var(--primary)] text-sm">PRODUCT</Link>
                         <Link href="#reviews" className="block text-gray-700 hover:text-[var(--primary)] text-sm">REVIEWS</Link>
                         <Link href="#blogs" className="block text-gray-700 hover:text-[var(--primary)] text-sm">BLOGS</Link>
                         <Link href="#service" className="block text-gray-700 hover:text-[var(--primary)] text-sm">SERVICE</Link>

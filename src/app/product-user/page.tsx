@@ -1,14 +1,10 @@
-"use client";
-
-import HeroSection from "@/UI/componen-onbording/hero-section";
 import NavbarHome from "@/UI/componen-onbording/navbar";
 import Products from "@/UI/componen-onbording/product";
 
-export default function Home() {
+export default function ProductUser() {
   return (
     <div>
       <NavbarHome />
-      <HeroSection />
       <Products />
     </div>
   );
