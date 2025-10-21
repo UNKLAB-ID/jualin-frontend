@@ -2,6 +2,7 @@ import Image from "next/image";
 import rectangle82 from "../../assets/images/rectangle82.svg";
 import rectangle81 from "../../assets/images/rectangle81.svg";
 import rectangle79 from "../../assets/images/rectangle79.svg";
+import imageHero from "../../assets/images/image-hero.svg";
 import DolarIcon from "@/assets/icons/dolar-icons";
 
 const ServiceOnbording = () => {
@@ -129,8 +130,14 @@ const ServiceOnbording = () => {
           ))}
         </div>
 
-        <div>
-       
+        <div className="w-full mt-20">
+          <Image
+            src={imageHero}
+            alt="Hero Image"
+            width={1000} // nilai hanya untuk kebutuhan Next.js
+            height={296}
+            className="w-full h-auto object-cover mt-4"
+          />
         </div>
       </div>
     </section>
