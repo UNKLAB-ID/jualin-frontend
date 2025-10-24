@@ -71,7 +71,7 @@ const ProductDetail = () => {
           <h3 className="text-xl font-bold text-gray-900 mt-6">
             Deskripsi Produk
           </h3>
-          <p className="mt-4 text-gray-700 leading-relaxed">
+          <p className="mt-4 text-gray-700 leading-relaxed text-justify">
             Toyota Avanza 2023 adalah pilihan sempurna untuk keluarga yang
             menginginkan kenyamanan dan efisiensi bahan bakar. Dengan desain
             modern dan ruang kabin yang luas, mobil ini menawarkan pengalaman
