@@ -347,7 +347,7 @@ const FilterAndSearch = ({
                     <span className="text-sm text-gray-600">Filter aktif:</span>
                     {searchQuery && (
                         <span className="bg-[var(--primary)]/10 text-[var(--primary)] px-3 py-1 rounded-full text-xs font-medium">
-                            "{searchQuery}"
+                            &quot;{searchQuery}&quot;
                         </span>
                     )}
                     {selectedCategory !== "Semua" && (

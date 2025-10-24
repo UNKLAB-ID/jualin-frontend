@@ -16,13 +16,13 @@ const Footer = () => {
           <div>
             {/* Logo */}
             <div className="flex items-center space-x-3 mb-4">
-              <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
+              {/* <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
                 <img
                   src="/logo.png"
                   alt="Logo"
                   className="w-8 h-8 object-contain"
                 />
-              </div>
+              </div> */}
               <div>
                 <h1 className="text-xl font-bold text-gray-900">AutoRental</h1>
                 <p className="text-xs text-gray-500">Jual barang Cepat</p>

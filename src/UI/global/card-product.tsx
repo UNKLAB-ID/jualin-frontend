@@ -4,11 +4,13 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import rectangle38 from "../../assets/images/rectangle38.svg";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import ButtonSecundary from "./button-secundary";
 import ButtonPrimary from "./button-primary";
 import DeleteIcon from '@mui/icons-material/Delete';
 
 interface CardProductProps {
+  id: string;
   title?: string;
   category?: string;
   location?: string;
@@ -19,13 +21,13 @@ interface CardProductProps {
   views?: string;
   timePosted?: string;
   discountPercentage?: number;
-  onBuyClick?: () => void;
   onChatClick?: () => void;
 
   role?: "user" | "admin";
 }
 
 const CardProduct = ({
+  id,
   title = "Toyota Avanza 2023 - Mobil Keluarga Nyaman & Irit",
   category = "Mobil",
   location = "Jakarta Selatan",
@@ -36,10 +38,10 @@ const CardProduct = ({
   views = "1.2k",
   timePosted = "2h",
   discountPercentage,
-  onBuyClick,
   onChatClick,
   role = "user",
 }: CardProductProps) => {
+  const router = useRouter();
   const [isFavorite, setIsFavorite] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [touchStart, setTouchStart] = useState(0);
@@ -248,14 +250,14 @@ const CardProduct = ({
         {/* Action Buttons */}
         {role === "user" && (
           <div className="flex gap-1 sm:gap-2">
-            <ButtonPrimary text="Beli" width="100%" onClick={onBuyClick} />
+            <ButtonPrimary text="Show" width="100%" onClick={() => router.push(`/product-detail?id=${id}`)}/>
             <ButtonSecundary text="Chat" width="auto" onClick={onChatClick} />
           </div>
         )}
 
         {role === "admin" && (
           <div>
-            <ButtonPrimary text="Update" width="100%" onClick={onBuyClick} />
+            <ButtonPrimary text="Update" width="100%"  />
             <div className="flex gap-1 sm:gap-2 mt-2">
               <ButtonSecundary text="Show" width="100%" onClick={onChatClick} />
               <button

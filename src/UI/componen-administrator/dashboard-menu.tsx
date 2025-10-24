@@ -133,14 +133,14 @@ export default function DashboardMenu({ children }: DashboardMenuProps) {
   };
 
   const menuItems = [
-    { text: "Dashboard", icon: <DashboardIcon />, path: "/dasboard" },
-    { text: "Products", icon: <ShoppingCartIcon />, path: "/dasboard/product" },
-    { text: "Users", icon: <PeopleIcon />, path: "/dasboard/users" },
-    { text: "Analytics", icon: <BarChartIcon />, path: "/dasboard/analytics" },
+    { text: "Dashboard", icon: <DashboardIcon />, path: "/dashboard" },
+    { text: "Products", icon: <ShoppingCartIcon />, path: "/dashboard/product" },
+    { text: "Users", icon: <PeopleIcon />, path: "/dashboard/users" },
+    { text: "Analytics", icon: <BarChartIcon />, path: "/dashboard/analytics" },
   ];
 
   const bottomMenuItems = [
-    { text: "Settings", icon: <SettingsIcon />, path: "/dasboard/settings" },
+    { text: "Settings", icon: <SettingsIcon />, path: "/dashboard/settings" },
     { text: "Logout", icon: <LogoutIcon />, path: "/logout" },
   ];
 

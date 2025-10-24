@@ -41,6 +41,7 @@ export default function ProductList() {
         {productsArray.map((_, index) => (
           <CardProduct
             key={index}
+            id={`product-${index + 1}`}
             discountPercentage={
               index % 3 === 0 ? 25 : index % 2 === 0 ? 50 : undefined
             }
