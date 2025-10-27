@@ -459,7 +459,11 @@ const FormProduct = ({
               <Box
                 sx={{
                   display: "grid",
-                  gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))",
+                  gridTemplateColumns: {
+                    xs: "repeat(2, 1fr)",
+                    sm: "repeat(3, 1fr)",
+                    md: "repeat(4, 1fr)",
+                  },
                   gap: 2,
                   mt: 3,
                 }}
