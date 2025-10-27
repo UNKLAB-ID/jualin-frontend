@@ -123,10 +123,20 @@ const FormProduct = ({
           // Check if ratio is 1:1 (square) - width must equal height
           const isSquare = img.width === img.height;
 
+          // Check minimum size (800x800)
+          const isMinSize = img.width >= 800 && img.height >= 800;
+
           if (!isSquare) {
             setError("images", {
               type: "manual",
               message: `${file.name}: Gambar harus berbentuk persegi 1:1 (${img.width}x${img.height} tidak valid)`,
+            });
+            URL.revokeObjectURL(url);
+            resolve(false);
+          } else if (!isMinSize) {
+            setError("images", {
+              type: "manual",
+              message: `${file.name}: Ukuran minimal 800x800px (gambar Anda ${img.width}x${img.height})`,
             });
             URL.revokeObjectURL(url);
             resolve(false);
@@ -500,7 +510,7 @@ const FormProduct = ({
               color="warning.main"
               sx={{ mb: 2, display: "block" }}
             >
-              ⚠️ Gambar wajib berbentuk persegi (rasio 1:1). Contoh: 500x500, 1000x1000, 2000x2000
+              ⚠️ Gambar wajib berbentuk persegi (1:1) dengan ukuran minimal 800x800px. Contoh: 800x800, 1000x1000, 1200x1200
             </Typography>
 
             <Controller
