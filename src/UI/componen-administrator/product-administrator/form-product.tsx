@@ -84,7 +84,7 @@ const FormProduct = ({
     }
   };
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files) return;
 
@@ -100,16 +100,85 @@ const FormProduct = ({
       return;
     }
 
+    // Validasi ukuran dan rasio gambar
+    const validFiles: File[] = [];
+    const validPreviews: string[] = [];
+
+    for (const file of newFiles) {
+      // Check if file is image
+      if (!file.type.startsWith("image/")) {
+        setError("images", {
+          type: "manual",
+          message: "File harus berupa gambar",
+        });
+        continue;
+      }
+
+      // Validate image dimensions
+      const isValid = await new Promise<boolean>((resolve) => {
+        const img = new Image();
+        const url = URL.createObjectURL(file);
+
+        img.onload = () => {
+          // Check if ratio is 1:1 (square)
+          const isSquare = img.width === img.height;
+
+          // Check if size is at least 1000x1000
+          const isValidSize = img.width >= 1000 && img.height >= 1000;
+
+          if (!isSquare) {
+            setError("images", {
+              type: "manual",
+              message: `${file.name}: Gambar harus berbentuk persegi (rasio 1:1)`,
+            });
+            URL.revokeObjectURL(url);
+            resolve(false);
+          } else if (!isValidSize) {
+            setError("images", {
+              type: "manual",
+              message: `${file.name}: Ukuran gambar minimal 1000x1000 piksel`,
+            });
+            URL.revokeObjectURL(url);
+            resolve(false);
+          } else {
+            validFiles.push(file);
+            validPreviews.push(url);
+            resolve(true);
+          }
+        };
+
+        img.onerror = () => {
+          setError("images", {
+            type: "manual",
+            message: `${file.name}: Gagal memuat gambar`,
+          });
+          URL.revokeObjectURL(url);
+          resolve(false);
+        };
+
+        img.src = url;
+      });
+
+      if (!isValid) {
+        // Wait a bit to show error message
+        await new Promise((resolve) => setTimeout(resolve, 100));
+      }
+    }
+
+    // If no valid files, return
+    if (validFiles.length === 0) {
+      return;
+    }
+
     // Clear error if valid
     clearErrors("images");
 
     // Update images
-    const updatedImages = [...currentImages, ...newFiles];
+    const updatedImages = [...currentImages, ...validFiles];
     setValue("images", updatedImages);
 
-    // Create preview URLs
-    const newPreviews = newFiles.map((file) => URL.createObjectURL(file));
-    setImagePreviews([...imagePreviews, ...newPreviews]);
+    // Add preview URLs
+    setImagePreviews([...imagePreviews, ...validPreviews]);
   };
 
   const handleDeleteImage = (index: number) => {
@@ -131,7 +200,12 @@ const FormProduct = ({
 
   return (
     <Box sx={{ maxWidth: 800, mx: "auto", p: 3 }}>
-      <Typography variant="h4" component="h1" gutterBottom sx={{ mb: 4, fontWeight: 600 }}>
+      <Typography
+        variant="h4"
+        component="h1"
+        gutterBottom
+        sx={{ mb: 4, fontWeight: 600 }}
+      >
         {title}
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -181,7 +255,10 @@ const FormProduct = ({
                   type="number"
                   fullWidth
                   error={!!errors.price}
-                  helperText={errors.price?.message || "Harga normal produk (tanpa diskon)"}
+                  helperText={
+                    errors.price?.message ||
+                    "Harga normal produk (tanpa diskon)"
+                  }
                 />
               )}
             />
@@ -212,7 +289,10 @@ const FormProduct = ({
                   type="number"
                   fullWidth
                   error={!!errors.discount_percentage}
-                  helperText={errors.discount_percentage?.message || "Opsional. Contoh: 25 untuk diskon 25%"}
+                  helperText={
+                    errors.discount_percentage?.message ||
+                    "Opsional. Contoh: 25 untuk diskon 25%"
+                  }
                   inputProps={{ min: 0, max: 100 }}
                   onChange={(e) => {
                     const value = e.target.value;
@@ -227,7 +307,13 @@ const FormProduct = ({
           </Box>
 
           {/* Discount Date Range */}
-          <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" }, gap: 2 }}>
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
+              gap: 2,
+            }}
+          >
             {/* Discount Start Date */}
             <Box>
               <Typography variant="subtitle1" gutterBottom>
@@ -290,7 +376,11 @@ const FormProduct = ({
                     <MenuItem value="inactive">Non-aktif</MenuItem>
                   </Select>
                   {errors.status_product && (
-                    <Typography variant="caption" color="error" sx={{ mt: 0.5 }}>
+                    <Typography
+                      variant="caption"
+                      color="error"
+                      sx={{ mt: 0.5 }}
+                    >
                       {errors.status_product.message}
                     </Typography>
                   )}
@@ -407,8 +497,20 @@ const FormProduct = ({
             <Typography variant="subtitle1" gutterBottom>
               Gambar Produk <span style={{ color: "red" }}>*</span>
             </Typography>
-            <Typography variant="caption" color="text.secondary" sx={{ mb: 2 }}>
+            <Typography
+              variant="caption"
+              color="text.secondary"
+              sx={{ mb: 2, display: "block" }}
+            >
               Upload minimal 1 gambar, maksimal 10 gambar
+            </Typography>
+            <Typography
+              variant="caption"
+              color="warning.main"
+              sx={{ mb: 2, display: "block" }}
+            >
+              ⚠️ Gambar harus berbentuk persegi (rasio 1:1) dengan ukuran
+              minimal 1000x1000 piksel
             </Typography>
 
             <Controller
@@ -429,10 +531,14 @@ const FormProduct = ({
                     fullWidth
                     sx={{
                       mt: 1,
-                      borderColor: errors.images ? "error.main" : "primary.main",
+                      borderColor: errors.images
+                        ? "error.main"
+                        : "primary.main",
                       color: errors.images ? "error.main" : "primary.main",
                       "&:hover": {
-                        borderColor: errors.images ? "error.dark" : "primary.dark",
+                        borderColor: errors.images
+                          ? "error.dark"
+                          : "primary.dark",
                       },
                     }}
                   >
@@ -446,7 +552,11 @@ const FormProduct = ({
                     />
                   </Button>
                   {errors.images && (
-                    <Typography variant="caption" color="error" sx={{ mt: 1, display: "block" }}>
+                    <Typography
+                      variant="caption"
+                      color="error"
+                      sx={{ mt: 1, display: "block" }}
+                    >
                       {errors.images.message}
                     </Typography>
                   )}
