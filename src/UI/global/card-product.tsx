@@ -168,13 +168,13 @@ const CardProduct = ({
           onMouseLeave={onMouseLeave}
         >
           {images.map((imgSrc, index) => (
-            <div key={index} className="min-w-full">
+            <div key={index} className="min-w-full aspect-square">
               <Image
                 src={imgSrc}
                 alt={`Product image ${index + 1}`}
                 width={1000}
-                height={296}
-                className="w-full h-auto object-cover"
+                height={1000}
+                className="w-full h-full object-cover"
               />
             </div>
           ))}

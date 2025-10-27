@@ -120,27 +120,18 @@ const FormProduct = ({
         const url = URL.createObjectURL(file);
 
         img.onload = () => {
-          // Check if ratio is 1:1 (square)
+          // Check if ratio is 1:1 (square) - width must equal height
           const isSquare = img.width === img.height;
-
-          // Check if size is at least 1000x1000
-          const isValidSize = img.width >= 1000 && img.height >= 1000;
 
           if (!isSquare) {
             setError("images", {
               type: "manual",
-              message: `${file.name}: Gambar harus berbentuk persegi (rasio 1:1)`,
-            });
-            URL.revokeObjectURL(url);
-            resolve(false);
-          } else if (!isValidSize) {
-            setError("images", {
-              type: "manual",
-              message: `${file.name}: Ukuran gambar minimal 1000x1000 piksel`,
+              message: `${file.name}: Gambar harus berbentuk persegi 1:1 (${img.width}x${img.height} tidak valid)`,
             });
             URL.revokeObjectURL(url);
             resolve(false);
           } else {
+            // Valid square image - accept it
             validFiles.push(file);
             validPreviews.push(url);
             resolve(true);
@@ -500,7 +491,7 @@ const FormProduct = ({
             <Typography
               variant="caption"
               color="text.secondary"
-              sx={{ mb: 2, display: "block" }}
+              sx={{ mb: 1, display: "block" }}
             >
               Upload minimal 1 gambar, maksimal 10 gambar
             </Typography>
@@ -509,8 +500,7 @@ const FormProduct = ({
               color="warning.main"
               sx={{ mb: 2, display: "block" }}
             >
-              ⚠️ Gambar harus berbentuk persegi (rasio 1:1) dengan ukuran
-              minimal 1000x1000 piksel
+              ⚠️ Gambar wajib berbentuk persegi (rasio 1:1). Contoh: 500x500, 1000x1000, 2000x2000
             </Typography>
 
             <Controller
