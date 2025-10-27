@@ -7,7 +7,9 @@ export default function ProductUser() {
   return (
     <div>
       <NavbarHome />
-      <Products typeContent="all-products" />
+      <div className="mb-20">
+        <Products typeContent="all-products" />
+      </div>
       <Footer />
     </div>
   );
