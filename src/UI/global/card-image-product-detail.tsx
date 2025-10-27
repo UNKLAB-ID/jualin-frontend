@@ -14,24 +14,27 @@ const CardImageProductDetail = ({
 
   return (
     <div>
-      <div className="w-full mb-4 relative">
+      {/* Main Image - Square 1:1 */}
+      <div className="w-full mb-4 relative aspect-square rounded-lg overflow-hidden">
         <Image
           src={images[selectedImage]}
           alt={`Product image hero`}
           width={1000}
-          height={296}
-          className="w-full h-auto object-cover rounded-lg"
+          height={1000}
+          className="w-full h-full object-cover"
         />
         <div className="absolute bottom-3 right-3 bg-black/60 text-white px-3 py-1 rounded-full text-sm font-medium">
           {selectedImage + 1} / {images.length}
         </div>
       </div>
+
+      {/* Thumbnail Images - Square 1:1 */}
       <div className="flex gap-2 overflow-x-auto scrollbar-hide">
         {images.map((img, index) => (
           <div
             key={index}
             onClick={() => setSelectedImage(index)}
-            className={`flex-shrink-0 cursor-pointer border-2 rounded-lg overflow-hidden transition-all ${
+            className={`flex-shrink-0 cursor-pointer border-2 rounded-lg overflow-hidden transition-all aspect-square ${
               selectedImage === index
                 ? "border-[var(--primary)]"
                 : "border-gray-300"
