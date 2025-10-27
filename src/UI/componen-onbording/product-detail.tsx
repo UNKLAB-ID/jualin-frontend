@@ -1,7 +1,15 @@
+import { useRouter } from "next/navigation";
 import ButtonPrimary from "../global/button-primary";
 import CardImageProductDetail from "../global/card-image-product-detail";
+import DeleteIcon from "@mui/icons-material/Delete";
 
-const ProductDetail = () => {
+interface ProductDetailProps {
+  typeAction: "user" | "admin";
+  id: string;
+}
+
+const ProductDetail = ({ typeAction = "user", id }: ProductDetailProps) => {
+  const router = useRouter();
   const typeProduct = ["GT Sport", "VIP", "Class A", "Premium"];
   const category = "Mobil";
   const price = 150000;
@@ -58,13 +66,34 @@ const ProductDetail = () => {
                 ))}
               </div>
             </div>
-            <div className="mt-6 w-full">
-              <ButtonPrimary
-                text="Chat Penjual"
-                width="100%"
-                className="px-3 py-4 bg-[var(--primary)] text-white rounded-md font-medium hover:bg-[var(--primary)]/90 transition text-[17px]"
-              />
-            </div>
+            {typeAction === "user" ? (
+              <div className="mt-6 w-full">
+                <ButtonPrimary
+                  text="Chat Penjual"
+                  width="100%"
+                  className="px-3 py-3 bg-[var(--primary)] text-white rounded-md font-medium hover:bg-[var(--primary)]/90 transition text-[17px]"
+                />
+              </div>
+            ) : (
+              <div className="mt-6 flex gap-1 sm:gap-2 mt-2">
+                <ButtonPrimary
+                onClick={()=> router.push(`/dashboard/update-product/${id}`)} 
+                  text="Update Produk"
+                  width="100%"
+                  className="px-3 py-3 bg-[var(--primary)] text-white rounded-md font-medium hover:bg-[var(--primary)]/90 transition text-[17px]"
+                />
+                <button
+                  style={{ width: "auto" }}
+                  className="flex items-center justify-center px-4 py-3 bg-red-600 text-white rounded-md hover:bg-red-700 transition"
+                  onClick={() => alert("Delete action")}
+                >
+                  <DeleteIcon
+                    sx={{ fontSize: { xs: 18, md: 30 } }}
+                    className="text-white"
+                  />
+                </button>
+              </div>
+            )}
           </div>
         </div>
         <div>

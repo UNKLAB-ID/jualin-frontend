@@ -250,16 +250,16 @@ const CardProduct = ({
         {/* Action Buttons */}
         {role === "user" && (
           <div className="flex gap-1 sm:gap-2">
-            <ButtonPrimary text="Show" width="100%" onClick={() => router.push(`/product-detail?id=${id}`)}/>
+            <ButtonPrimary text="Show" width="100%" onClick={() => router.push(`/product-detail/${id}`)}/>
             <ButtonSecundary text="Chat" width="auto" onClick={onChatClick} />
           </div>
         )}
 
         {role === "admin" && (
           <div>
-            <ButtonPrimary text="Update" width="100%"  />
+            <ButtonPrimary text="Update" width="100%"  onClick={()=> router.push("/dashboard/update-product/1")} />
             <div className="flex gap-1 sm:gap-2 mt-2">
-              <ButtonSecundary text="Show" width="100%" onClick={onChatClick} />
+              <ButtonSecundary text="Show" width="100%" onClick={()=> router.push("/dashboard/product-detail/1")} />
               <button
                 style={{ width: 'auto' }}
                 className="flex items-center justify-center px-4 p-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition"
